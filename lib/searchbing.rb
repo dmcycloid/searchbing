@@ -33,7 +33,7 @@ class Bing
 	#   search_term: (String)
 	#   offset: (Integer)
 
-	def search(search_term, offset = 0)
+	def search(search_term, offset = 0, full_response = false)
 
 		user = ''
 		sources_portion = URI.encode_www_form_component('\'' + @type + '\'')
@@ -61,6 +61,7 @@ class Bing
 		}
 
 		body = JSON.parse(res.body, :symbolize_names => true)
-		result_set = body[:d][:results]
+		
+		full_response ? body : body[:d][:results]
 	end	
 end
